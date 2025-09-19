@@ -35,5 +35,66 @@
     <!-- link to css -->
     <link rel="stylesheet" href="styles/style.css" />
   </head>
-  <body></body>
+  <body class="poppins">
+    <header>
+      <!-- navbar -->
+      <!-- navbar container  -->
+      <div class="navbar bg-[#BADEFF]/25 sm:px-[96px] shadow-sm">
+        <!-- navbar start -->
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <button class="btn">
+                <i class="fa-solid fa-circle-question"></i>FAQ
+              </button>
+              <button class="btn">
+                <i class="fa-solid fa-book-open"></i>Learn
+              </button>
+              <button class="btn">
+                <i class="fa-solid fa-right-from-bracket"></i>Logout
+              </button>
+            </ul>
+          </div>
+          <a class="flex gap-1 items-center">
+            <span class="font-bold text-xl">English</span>
+            <img src="assets/logo.png" alt="" />
+            <span class="bangla font-semibold text-xl">জানালা</span>
+          </a>
+        </div>
+        <!-- navbar end -->
+        <div class="navbar-end hidden lg:flex">
+          <ul class="menu menu-horizontal space-x-4 px-1">
+            <button class="btn btn-outline btn-primary">
+              <i class="fa-solid fa-circle-question"></i>FAQ
+            </button>
+            <button class="btn btn-outline btn-primary">
+              <i class="fa-solid fa-book-open"></i>Learn
+            </button>
+            <button class="btn btn-outline btn-primary">
+              <i class="fa-solid fa-right-from-bracket"></i>Logout
+            </button>
+          </ul>
+        </div>
+      </div>
+    </header>
+  </body>
 </html>
