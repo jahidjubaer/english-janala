@@ -20,6 +20,38 @@ const manageSpinner = (loading) => {
   }
 };
 
+// pronounce word
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
+// search
+
+document.getElementById("search-btn").addEventListener("click", () => {
+  let inputValue = document.getElementById("search-input").value;
+  inputValue = inputValue.trim().toLowerCase();
+
+  fetch("https://openapi.programming-hero.com/api/words/all")
+    .then((res) => res.json())
+    .then((data) => {
+      const allWord = data.data;
+
+      const fitterValue = allWord.filter((word) =>
+        word.word.toLowerCase().includes(inputValue)
+      );
+      displayLevelWord(fitterValue);
+    });
+
+  const lessonBtn = document.querySelectorAll(".lesson-btn");
+
+  // remove all the action class if there have any .
+  lessonBtn.forEach((element) => {
+    element.classList.remove("action");
+  });
+});
+
 // display the level ;
 const displayLevel = (data) => {
   // get the container ;
@@ -80,10 +112,9 @@ const displayLevelWord = (word) => {
       <h1 class="font-bold bangla text-4xl">নেক্সট Lesson এ যান</h1>
      </div>
     `;
-    // spinner 
-    manageSpinner(false)
-    return; 
-    
+    // spinner
+    manageSpinner(false);
+    return;
   }
 
   word.forEach((element) => {
@@ -108,7 +139,9 @@ const displayLevelWord = (word) => {
           })" class="btn btn-square bg-[#1A91FF]/10 hover:bg-[#1A91FF]/60 border-none p-6">
             <i class="fa-solid fa-circle-info fa-xl text-[#374957]"></i>
           </button>
-          <button  class="btn btn-square bg-[#1A91FF]/10 hover:bg-[#1A91FF]/60 border-none p-6">
+          <button onclick="pronounceWord('${
+            element.word
+          }')" class="btn btn-square bg-[#1A91FF]/10 hover:bg-[#1A91FF]/60 border-none p-6">
             <i class="fa-solid fa-volume-high fa-xl text-[#374957] "></i>
           </button>
         </div>
