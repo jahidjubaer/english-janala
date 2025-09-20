@@ -134,9 +134,8 @@ const displayWordDetails = (data) => {
           </div>
           <div>
             <p class="font-medium text-2xl bangla mb-1">সমার্থক শব্দ গুলো</p>
-            <p class="btn bg-[#EDF7FF]">Enthusiastic</p>
-            <p class="btn bg-[#EDF7FF]">excited</p>
-            <p class="btn bg-[#EDF7FF]">keen</p>
+              
+            ${synonymsBtn(data.synonyms)}
           </div>
         </div>
   `;
@@ -144,3 +143,11 @@ const displayWordDetails = (data) => {
   // append the new div ;
   wordDetailsContainer.appendChild(div);
 };
+
+// function for synonyms
+const synonymsBtn = (arr) => {
+  console.log(arr);
+  
+  const arrValue = arr.map(element => `<span class="btn bg-[#EDF7FF]">${element}</span>`) ;
+  return arrValue.join(" "); // need to join en empty string bz arrValue return array of element , we need to pass string ; 
+}
