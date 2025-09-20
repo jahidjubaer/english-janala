@@ -148,14 +148,30 @@
       id="level-word-container"
       class="bg-gray-100 space-y-4 md:space-y-0 md:grid grid-cols-3 md:w-11/12 mx-auto gap-8 p-8 text-center rounded-3xl"
     >
-    
-    <!-- home view -->
-     <div class="space-y-6 rounded-2xl bg-white p-16 col-span-3 " >
-      <p class="text-gray-600 font-medium text-xl bangla">আপনি এখনো কোন Lesson Select করেন নি</p>
-      <h1 class="font-bold bangla text-4xl">একটি Lesson Select করুন।</h1>
-     </div>
+      <!-- home view -->
+      <div class="space-y-6 rounded-2xl bg-white p-16 col-span-3">
+        <p class="text-gray-600 font-medium text-xl bangla">
+          আপনি এখনো কোন Lesson Select করেন নি
+        </p>
+        <h1 class="font-bold bangla text-4xl">একটি Lesson Select করুন।</h1>
+      </div>
+    </section>
 
-  </section>
+    <!-- Open the modal using ID.showModal() method -->
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <!-- my modal -->
+        <div id="word-modal-container"></div>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn bg-[#422AD5] text-white">
+              Complete Learning
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
 
     <!-- connect js  -->
     <script src="js/index.js"></script>

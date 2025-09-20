@@ -18,14 +18,29 @@ const displayLevel = (data) => {
     // create a new element
     const div = document.createElement("div");
     div.innerHTML = `
-        <button onclick="loadLevelWord(${element.level_no })" class="btn btn-outline btn-primary">
+        <button id="activeBtn-${element.level_no}" onclick="loadLevelWord(${element.level_no}); activeBtn(${element.level_no}) " class="btn btn-outline btn-primary lesson-btn">
           <i class="fa-solid fa-book-open"></i>Lesson - ${element.level_no}
         </button>
-        `;
+        `; // onclick i pass two function one is loadLevelWord -> display level world ;
+    // then activeBtn -> active the button ; to function occur at the same time ;
 
     // append the new element ;
     levelContainer.appendChild(div);
   });
+};
+
+// active btn ;
+const activeBtn = (id) => {
+  const levelBtn = document.getElementById(`activeBtn-${id}`);
+  const lessonBtn = document.querySelectorAll(".lesson-btn");
+
+  // remove all the action class if there have any .
+  lessonBtn.forEach((element) => {
+    element.classList.remove("action");
+  });
+
+  // add a action class to every element. but it will not
+  levelBtn.classList.add("action");
 };
 
 // load the loadLevelWord
@@ -57,11 +72,21 @@ const displayLevelWord = (word) => {
     const div = document.createElement("div");
     div.innerHTML = `
         <div class="space-y-6 rounded-2xl bg-white p-16">
-        <h1 class="text-3xl font-bold">${element.word ? element.word: "Word not found"}</h1>
-        <p class="text-xl bangla">${element.pronunciation ? element.pronunciation : "Pronunciation Not found"}</p>
-        <h2 class="bangla font-semibold text-3xl mb-16">"${element.meaning ? element.meaning : "Meaning not found" }"</h2>
+        <h1 class="text-3xl font-bold">${
+          element.word ? element.word : "Word not found"
+        }</h1>
+        <p class="text-xl bangla">${
+          element.pronunciation
+            ? element.pronunciation
+            : "Pronunciation Not found"
+        }</p>
+        <h2 class="bangla font-semibold text-3xl mb-16">"${
+          element.meaning ? element.meaning : "Meaning not found"
+        }"</h2>
         <div class="flex justify-between">
-          <button class="btn btn-square bg-[#1A91FF]/10 hover:bg-[#1A91FF]/60 border-none p-6">
+          <button onclick="loadWordDetails(${
+            element.id
+          })" class="btn btn-square bg-[#1A91FF]/10 hover:bg-[#1A91FF]/60 border-none p-6">
             <i class="fa-solid fa-circle-info fa-xl text-[#374957]"></i>
           </button>
           <button  class="btn btn-square bg-[#1A91FF]/10 hover:bg-[#1A91FF]/60 border-none p-6">
@@ -72,4 +97,50 @@ const displayLevelWord = (word) => {
         `;
     levelWordContainer.appendChild(div);
   });
+};
+
+// load the word details
+const loadWordDetails = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/word/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  // call the display function ;
+  displayWordDetails(data.data);
+
+  // call the showModal -> a daisyui function ;  my id : remember i want to change the id name i can only use _ no - or space ;
+  document.getElementById("my_modal_5").showModal();
+};
+
+// displayWordDetails
+const displayWordDetails = (data) => {
+  // get the container for word details
+  wordDetailsContainer = document.getElementById("word-modal-container");
+  // empty after close ;
+  wordDetailsContainer.innerHTML = "";
+
+  // create a new div and design the div
+  const div = document.createElement("div");
+  div.innerHTML = `
+   <div class="border-1 border-[#EDF7FF] p-6 space-y-6">
+          <h1 class="font-semibold text-4xl">${data.word} (<i class="fa-solid fa-microphone-lines"></i> : <span class="bangla">${data.pronunciation}</span> )</h1>
+          <div>
+            <p class="font-bold text-2xl">Meaning</p>
+            <p class="font-medium text-2xl bangla">${data.meaning}</p>
+          </div>
+          <div>
+            <h3 class="font-bold text-2xl">Example</h3>
+            <p class="text-2xl bangla">${data.sentence}</p>
+          </div>
+          <div>
+            <p class="font-medium text-2xl bangla mb-1">সমার্থক শব্দ গুলো</p>
+            <p class="btn bg-[#EDF7FF]">Enthusiastic</p>
+            <p class="btn bg-[#EDF7FF]">excited</p>
+            <p class="btn bg-[#EDF7FF]">keen</p>
+          </div>
+        </div>
+  `;
+
+  // append the new div ;
+  wordDetailsContainer.appendChild(div);
 };
