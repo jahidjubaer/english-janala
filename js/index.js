@@ -1,4 +1,4 @@
-// data fetch
+// level data fetch
 const levelLoad = () => {
   const url = "https://openapi.programming-hero.com/api/levels/all#";
   fetch(url)
@@ -7,6 +7,18 @@ const levelLoad = () => {
 };
 
 levelLoad();
+
+// spinner
+
+const manageSpinner = (loading) => {
+  if (loading === true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("level-word-container").classList.add("hidden");
+  } else {
+    document.getElementById("level-word-container").classList.remove("hidden");
+    document.getElementById("spinner").classList.add("hidden");
+  }
+};
 
 // display the level ;
 const displayLevel = (data) => {
@@ -46,6 +58,9 @@ const activeBtn = (id) => {
 // load the loadLevelWord
 
 const loadLevelWord = (id) => {
+  // spinner
+  manageSpinner(true);
+
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   fetch(url)
     .then((res) => res.json())
@@ -65,6 +80,10 @@ const displayLevelWord = (word) => {
       <h1 class="font-bold bangla text-4xl">নেক্সট Lesson এ যান</h1>
      </div>
     `;
+    // spinner 
+    manageSpinner(false)
+    return; 
+    
   }
 
   word.forEach((element) => {
@@ -97,6 +116,7 @@ const displayLevelWord = (word) => {
         `;
     levelWordContainer.appendChild(div);
   });
+  manageSpinner(false);
 };
 
 // load the word details
@@ -123,7 +143,11 @@ const displayWordDetails = (data) => {
   const div = document.createElement("div");
   div.innerHTML = `
    <div class="border-1 border-[#EDF7FF] p-6 space-y-6">
-          <h1 class="font-semibold text-4xl">${data.word} (<i class="fa-solid fa-microphone-lines"></i> : <span class="bangla">${data.pronunciation}</span> )</h1>
+          <h1 class="font-semibold text-4xl">${
+            data.word
+          } (<i class="fa-solid fa-microphone-lines"></i> : <span class="bangla">${
+    data.pronunciation
+  }</span> )</h1>
           <div>
             <p class="font-bold text-2xl">Meaning</p>
             <p class="font-medium text-2xl bangla">${data.meaning}</p>
@@ -147,7 +171,9 @@ const displayWordDetails = (data) => {
 // function for synonyms
 const synonymsBtn = (arr) => {
   console.log(arr);
-  
-  const arrValue = arr.map(element => `<span class="btn bg-[#EDF7FF]">${element}</span>`) ;
-  return arrValue.join(" "); // need to join en empty string bz arrValue return array of element , we need to pass string ; 
-}
+
+  const arrValue = arr.map(
+    (element) => `<span class="btn bg-[#EDF7FF]">${element}</span>`
+  );
+  return arrValue.join(" "); // need to join en empty string bz arrValue return array of element , we need to pass string ;
+};
